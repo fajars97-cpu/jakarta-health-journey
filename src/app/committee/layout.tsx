@@ -1,0 +1,1 @@
+import { AdminShell } from "@/components/layouts/admin-shell"; import { Role } from "@/types/domain"; export default function Layout({children}:{children:React.ReactNode}){return <AdminShell role={Role.CommitteeAdmin}>{children}</AdminShell>}

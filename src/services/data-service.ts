@@ -1,0 +1,4 @@
+import { applications, auditLogs, feedbacks, inquiries, organizations } from "@/data/demo/mock-data";
+import { Feedback, Inquiry, Organization, VerificationApplication } from "@/types/domain";
+/** Demo repository. Replace methods with Supabase queries when credentials are configured. */
+export const dataService={listPublic:():Organization[]=>organizations.filter(x=>x.status==="Verified"),findBySlug:(slug:string)=>organizations.find(x=>x.slug===slug),listOrganizations:()=>organizations,inquiries:()=>inquiries,feedbacks:()=>feedbacks,applications:()=>applications,auditLogs:()=>auditLogs,addInquiry:(record:Inquiry)=>inquiries.unshift(record),addFeedback:(record:Feedback)=>feedbacks.unshift(record),decide:(app:VerificationApplication,action:string,note:string)=>auditLogs.unshift({id:`AL-${Date.now()}`,at:"Baru saja",admin:"Nadia Panitia",action,entity:app.organizationId,note})};
