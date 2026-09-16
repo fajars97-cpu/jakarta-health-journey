@@ -51,7 +51,7 @@ export function LoginForm() {
         <button className="btn btn-primary auth-submit" type="submit" disabled={submitting || status === "loading"}>{submitting ? "Memproses…" : <>Masuk <ArrowRight size={17} /></>}</button>
       </form>
       <p className="auth-note">Untuk demo, gunakan kredensial yang sudah dibagikan. Kata sandi demo perlu diganti sebelum digunakan di lingkungan produksi.</p>
-      <Link className="auth-back" href="/accounts">← Lihat jenis akun</Link>
+      <Link className="auth-back" href="/">← Kembali ke Jakarta Health Journey</Link>
     </section>
   </main>;
 }

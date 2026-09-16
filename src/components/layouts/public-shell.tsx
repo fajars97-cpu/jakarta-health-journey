@@ -7,7 +7,7 @@ import { useState } from "react";
 import { AppwritePing } from "@/components/appwrite/appwrite-ping";
 
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const nav = [["Jelajahi", "/explore"], ["Dukungan perjalanan", "/support"], ["Portal akun", "/accounts"], ["Feedback", "/feedback"]] as const;
+const nav = [["Jelajahi", "/explore"], ["Dukungan perjalanan", "/support"], ["Feedback", "/feedback"]] as const;
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   const [en, setEn] = useState(false);
