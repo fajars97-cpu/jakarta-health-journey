@@ -9,5 +9,7 @@ export type Organization={id:string;slug:string;name:string;type:PartnerType;sta
 export type FacilityProfile=Organization & {patientContact:string; inquiryEstimate:string}; export type SupportPartnerProfile=Organization & {supportNote:string};
 export type VerificationApplication={id:string;organizationId:string;partnerType:PartnerType;status:VerificationStatus;submittedAt:string;note:string};
 export type Inquiry={id:string;organizationId:string;name:string;contact:string;service:string;date:string;needsTravel:boolean;status:InquiryStatus;createdAt:string};
+export type AppointmentKind="Konsultasi awal"|"Kedatangan tindakan";
+export type Appointment={id:string;organizationId:string;inquiryId:string;patientName:string;service:string;kind:AppointmentKind;startsAt:string;status:"Dijadwalkan"|"Menunggu konfirmasi"|"Selesai";note?:string};
 export type Feedback={id:string;organizationId?:string;category:string;message:string;contact?:string;status:FeedbackStatus;createdAt:string};
 export type AuditLog={id:string;at:string;admin:string;action:string;entity:string;note:string};
