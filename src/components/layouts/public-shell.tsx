@@ -7,7 +7,7 @@ import { useState } from "react";
 import { AppwritePing } from "@/components/appwrite/appwrite-ping";
 
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const nav = [["Jelajahi", "/explore"], ["Dukungan perjalanan", "/support"], ["Feedback", "/feedback"]] as const;
+const nav = [["Jelajahi", "/explore"], ["Dukungan perjalanan", "/support"], ["Portal akun", "/accounts"], ["Feedback", "/feedback"]] as const;
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   const [en, setEn] = useState(false);
@@ -30,7 +30,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
         <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
           <Image className="hide-mobile" src={`${publicBasePath}/images/logo-jakarta-5-abad.png`} alt="5 Abad Jakarta, Kota Global dan Berbudaya" width={86} height={50} style={{ objectFit: "contain" }} />
           <button onClick={() => setEn(!en)} className="btn btn-outline btn-sm">{en ? "ID" : "EN"}</button>
-          <Link className="btn btn-primary btn-sm hide-mobile" href="/explore">{en ? "Explore care" : "Cari layanan"}</Link>
+          <Link className="btn btn-primary btn-sm hide-mobile" href="/login">{en ? "Sign in" : "Masuk"}</Link>
           <button aria-label="Buka menu" className="btn btn-outline btn-sm" onClick={() => setOpen(!open)}><Menu size={18} /></button>
         </div>
       </div>
