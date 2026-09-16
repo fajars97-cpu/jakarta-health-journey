@@ -1,26 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Compass, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, Compass, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 import { PublicShell } from "@/components/layouts/public-shell";
 
-const steps = ["Browse", "Choose", "Care", "Support", "Continue"];
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const journeySteps = [["01", "Explore", "Temukan fasilitas dan layanan terverifikasi."], ["02", "Plan", "Pilih layanan serta dukungan perjalanan."], ["03", "Connect", "Kirim inquiry non-klinis dengan aman."], ["04", "Arrive", "Lanjutkan perjalanan dengan lebih tenang."]];
+const valueCards = [[ShieldCheck, "Pilihan yang dapat dipercaya", "Partner ditinjau sebelum tampil dalam katalog publik."], [Compass, "Anda yang menentukan", "Bandingkan pilihan dan hubungi layanan sesuai kebutuhan sendiri."], [CheckCircle2, "Dukungan yang terarah", "Rencanakan pengalaman perawatan dan perjalanan tanpa kehilangan kendali."]] as const;
 
-export default function Home() {
-  return <PublicShell><main>
-    <section style={{ background: "linear-gradient(135deg,#e8f6f6 0%,#f8fcfd 55%,#dcecf8 100%)", padding: "68px 0 58px", overflow: "hidden" }}>
-      <div className="container hero-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,.9fr) minmax(340px,1.1fr)", gap: 28, alignItems: "center" }}>
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <span className="badge badge-verified"><ShieldCheck size={15} />Layanan publik tepercaya</span>
-          <h1 style={{ fontSize: "clamp(42px,6vw,68px)", lineHeight: 1.02, letterSpacing: "-2px", margin: "18px 0", color: "var(--navy)" }}>Care that guides<br />every journey.</h1>
-          <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: 550, color: "#486475" }}>Temukan layanan kesehatan terverifikasi di Jakarta dan dukungan perjalanan yang Anda butuhkan—tanpa mengurangi kendali Anda sebagai pasien.</p>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 25 }}><Link className="btn btn-primary" href="/explore">Jelajahi layanan <ArrowRight size={18} /></Link><Link className="btn btn-outline" href="/support">Dukungan perjalanan</Link></div>
-          <p className="hint" style={{ marginTop: 18, maxWidth: 520 }}>Platform informasi publik; bukan pengganti konsultasi medis atau layanan gawat darurat.</p>
-        </div>
-        <div style={{ position: "relative", minHeight: 360 }}><Image src={`${publicBasePath}/images/jakarta-health-journey-hero.png`} alt="Ilustrasi perjalanan layanan kesehatan di Jakarta dengan Monas, transportasi, hotel, dan fasilitas kesehatan" fill priority sizes="(max-width: 700px) 100vw, 55vw" style={{ objectFit: "contain", objectPosition: "center right", filter: "drop-shadow(0 16px 20px rgba(9,43,76,.10))" }} /></div>
-      </div>
-    </section>
-    <section className="container" style={{ padding: "65px 0" }}><p style={{ color: "var(--teal)", fontWeight: 800, margin: 0 }}>ALUR SEDERHANA</p><h2 className="section-title" style={{ marginTop: 8 }}>Perjalanan yang lebih jelas, langkah demi langkah.</h2><div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12, marginTop: 28 }}>{steps.map((step, index) => <div key={step} className="card" style={{ padding: 17 }}><b style={{ color: "var(--teal)", fontSize: 13 }}>0{index + 1}</b><p style={{ fontWeight: 800, margin: "12px 0 0", color: "var(--navy)" }}>{step}</p></div>)}</div></section>
-    <section style={{ background: "var(--mist)", padding: "62px 0" }}><div className="container"><h2 className="section-title">Dibangun untuk rasa aman dan kendali pasien.</h2><div className="values-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18, marginTop: 26 }}>{[[ShieldCheck, "Mitra terverifikasi", "Panitia menetapkan kriteria, memverifikasi, dan memantau mutu."], [Compass, "Pasien tetap memegang kendali", "Pilih dan hubungi layanan sesuai kebutuhan Anda sendiri."], [CheckCircle2, "Tindak lanjut lebih terarah", "Kirim inquiry non-klinis tanpa membagikan rekam medis."]].map(([Icon, title, text]) => { const ItemIcon = Icon as typeof ShieldCheck; return <article key={title as string} className="card" style={{ padding: 22 }}><ItemIcon color="#0e887f" /><h3 style={{ color: "var(--navy)", margin: "13px 0 7px" }}>{title as string}</h3><p style={{ margin: 0, color: "#547080", lineHeight: 1.5 }}>{text as string}</p></article>; })}</div></div></section>
-  </main></PublicShell>;
-}
+export default function Home() { return <PublicShell><main>
+  <section className="hero-premium"><div className="hero-orb hero-orb-one" /><div className="hero-orb hero-orb-two" />
+    <div className="container hero-layout"><div className="hero-copy reveal-up"><span className="eyebrow-light"><Sparkles size={14} /> Jakarta, care beyond borders</span><h1>Health journeys,<br /><em>made human.</em></h1><p>Temukan layanan kesehatan tepercaya dan dukungan perjalanan yang membuat kunjungan Anda ke Jakarta terasa lebih jelas, nyaman, dan terkendali.</p><div className="hero-actions"><Link className="btn btn-coral" href="/explore">Mulai jelajahi <ArrowRight size={18} /></Link><Link className="text-link-light" href="/support">Lihat dukungan perjalanan <ArrowRight size={16} /></Link></div><div className="hero-trust"><span><ShieldCheck size={17} /> Mitra terverifikasi</span><i /><span>Informasi publik, non-klinis</span></div></div>
+      <div className="hero-art reveal-up-delay"><div className="flight-path"><span>✦</span></div><div className="hero-image-frame"><Image src={`${publicBasePath}/images/jakarta-health-journey-hero.png`} alt="Ilustrasi perjalanan layanan kesehatan di Jakarta dengan Monas, transportasi, hotel, dan fasilitas kesehatan" fill priority sizes="(max-width: 760px) 100vw, 52vw" style={{ objectFit: "contain" }} /></div><div className="floating-note note-top"><MapPin size={16} /><span><b>Jakarta</b><small>Your care gateway</small></span></div><div className="floating-note note-bottom"><span className="note-check">✓</span><span><b>Verified partners</b><small>Built for your confidence</small></span></div></div>
+    </div>
+  </section>
+  <section className="container journey-section"><div className="section-heading"><div><p className="eyebrow">SEAMLESS BY DESIGN</p><h2>One city.<br />A more confident journey.</h2></div><p>Setiap langkah disusun untuk menghubungkan kebutuhan kesehatan Anda dengan keramahan dan energi Jakarta.</p></div><div className="journey-track">{journeySteps.map(([number, title, description]) => <article className="journey-step" key={title}><div className="step-number">{number}</div><div className="step-dot" /><h3>{title}</h3><p>{description}</p></article>)}</div></section>
+  <section className="confidence-section"><div className="container confidence-layout"><div><p className="eyebrow">A PUBLIC SERVICE, DESIGNED WITH CARE</p><h2>Made for the<br /><em>whole journey.</em></h2><p className="confidence-intro">Kami percaya perjalanan medis yang baik dimulai dari informasi yang jelas, pilihan yang bertanggung jawab, dan rasa sambutan yang tulus.</p><Link className="btn btn-dark" href="/explore">Jelajahi partner <ArrowRight size={18} /></Link></div><div className="value-grid">{valueCards.map(([Icon, title, text], index) => <article className="value-card" key={title}><span className="value-index">0{index + 1}</span><Icon size={25} /><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
+  <section className="container invitation-section"><div className="invitation-card"><div><p className="eyebrow">WELCOME TO JAKARTA</p><h2>Care can feel<br />like a warm welcome.</h2></div><Link href="/support" className="round-arrow" aria-label="Lihat dukungan perjalanan"><ArrowRight size={30} /></Link></div></section>
+</main></PublicShell>; }

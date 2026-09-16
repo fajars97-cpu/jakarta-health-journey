@@ -19,7 +19,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
           <Image src={`${publicBasePath}/images/logo-dki-jakarta.png`} alt="Lambang Provinsi DKI Jakarta" width={38} height={43} style={{ objectFit: "contain" }} />
           <span aria-hidden="true" style={{ width: 1, height: 34, background: "#d7e2e8" }} />
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 9, fontWeight: 800, color: "var(--navy)", lineHeight: 1.04 }}>
-            <Image src={`${publicBasePath}/images/jakarta-health-journey-mark-v1.png`} alt="Logo Jakarta Health Journey" width={40} height={46} style={{ objectFit: "contain" }} />
+            <Image src={`${publicBasePath}/images/jakarta-health-journey-mark-v1.png`} alt="Logo Jakarta Health Journey" width={40} height={40} style={{ objectFit: "contain" }} />
             <span>Jakarta Health<br /><small style={{ fontWeight: 600, color: "#4c697b" }}>Journey</small></span>
           </Link>
         </div>
@@ -42,7 +42,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
       <div className="container" style={{ display: "flex", justifyContent: "space-between", gap: 20, flexWrap: "wrap", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
           <Image src={`${publicBasePath}/images/logo-dki-jakarta.png`} alt="Lambang Provinsi DKI Jakarta" width={34} height={39} style={{ objectFit: "contain" }} />
-          <Image src={`${publicBasePath}/images/jakarta-health-journey-mark-v1.png`} alt="Logo Jakarta Health Journey" width={35} height={41} style={{ objectFit: "contain" }} />
+          <Image src={`${publicBasePath}/images/jakarta-health-journey-mark-v1.png`} alt="Logo Jakarta Health Journey" width={35} height={35} style={{ objectFit: "contain" }} />
           <div><b style={{ color: "white" }}>Jakarta Health Journey</b><p style={{ margin: "5px 0 0", fontSize: 14 }}>Trusted Care, Seamless Journey</p></div>
         </div>
         <div style={{ display: "flex", gap: 8, fontSize: 13, maxWidth: 470 }}><ShieldCheck size={18} /><span>Platform informasi publik. Bukan pengganti konsultasi medis atau layanan gawat darurat.</span></div>
