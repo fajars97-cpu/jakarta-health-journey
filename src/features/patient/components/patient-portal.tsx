@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, ReactNode, useState } from "react";
-import { CalendarClock, ClipboardList, Hotel, Plane, ShieldCheck, UserRound, XCircle } from "lucide-react";
+import { CalendarClock, ClipboardList, Compass, Hotel, Plane, ShieldCheck, UserRound, XCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { RequireAuthentication } from "@/features/auth/require-authentication";
 import { useAuth } from "@/features/auth/auth-provider";
@@ -20,7 +20,7 @@ const schedules: Schedule[] = [
   { id: "APT-207", title: "Kedatangan untuk tindakan", provider: "RS Harapan Kota · Menunggu konfirmasi klinis", time: "02 Okt 2026 · 08.00 WIB", type: "Tindakan", status: "Dijadwalkan" },
 ];
 
-const nav = [["Ringkasan", "/patient/dashboard", ClipboardList], ["Jadwal", "/patient/schedule", CalendarClock], ["Inquiry perjalanan", "/patient/inquiries", Plane], ["Data diri", "/patient/profile", UserRound]] as const;
+const nav = [["Ringkasan", "/patient/dashboard", ClipboardList], ["Jadwal", "/patient/schedule", CalendarClock], ["Inquiry perjalanan", "/patient/inquiries", Plane], ["Data diri", "/patient/profile", UserRound], ["Jelajahi layanan", "/explore", Compass]] as const;
 
 export function PatientShell({ children }: { children: ReactNode }) {
   const path = usePathname(); const { user, signOut } = useAuth();

@@ -19,6 +19,7 @@ export function LoginForm() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const nextPath = safeNextPath(searchParams.get("next"));
+  const registerHref = `/register?next=${encodeURIComponent(nextPath)}`;
 
   useEffect(() => {
     if (status === "authenticated") router.replace(nextPath);
@@ -50,7 +51,7 @@ export function LoginForm() {
         {error && <p className="auth-error" role="alert">{error}</p>}
         <button className="btn btn-primary auth-submit" type="submit" disabled={submitting || status === "loading"}>{submitting ? "Memproses…" : <>Masuk <ArrowRight size={17} /></>}</button>
       </form>
-      <p className="auth-note">Untuk demo, gunakan kredensial yang sudah dibagikan. Kata sandi demo perlu diganti sebelum digunakan di lingkungan produksi.</p>
+      <p className="auth-note">Belum punya akun? <Link href={registerHref} style={{ color: "#087d80", fontWeight: 800 }}>Buat akun pasien</Link></p>
       <Link className="auth-back" href="/">← Kembali ke Jakarta Health Journey</Link>
     </section>
   </main>;

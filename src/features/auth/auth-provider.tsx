@@ -1,6 +1,6 @@
 "use client";
 
-import { Account, type Models } from "appwrite";
+import { Account, ID, type Models } from "appwrite";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { client } from "@/lib/appwrite/client";
 
@@ -10,6 +10,7 @@ type AuthContextValue = {
   status: AuthStatus;
   user: Models.User<Models.Preferences> | null;
   signIn: (email: string, password: string) => Promise<void>;
+  signUp: (name: string, email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -58,6 +59,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     status,
     user,
     async signIn(email, password) {
+      await account.createEmailPasswordSession({ email, password });
+      await refresh();
+    },
+    async signUp(name, email, password) {
+      await account.create({ userId: ID.unique(), name, email, password });
       await account.createEmailPasswordSession({ email, password });
       await refresh();
     },

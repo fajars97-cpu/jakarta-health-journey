@@ -6,7 +6,7 @@ import { useAuth } from "./auth-provider";
 
 export function AccountHome() {
   const { user, signOut } = useAuth();
-  const portalHref = user?.email === "patient.demo@jakartahealthjourney.id" ? "/patient/dashboard" : user?.email === "admin.fasyankes@jakartahealthjourney.id" ? "/facility-admin/dashboard" : "/admin";
+  const portalHref = user?.email === "admin.fasyankes@jakartahealthjourney.id" ? "/facility-admin/dashboard" : ["admin.jhj@jakartahealthjourney.id", "admin.support@jakartahealthjourney.id", "reviewer.demo@jakartahealthjourney.id"].includes(user?.email ?? "") ? "/admin" : "/patient/dashboard";
   return <main className="auth-page"><section className="auth-card auth-account-card">
     <div className="auth-brand"><ShieldCheck size={23} /><span>Jakarta Health Journey</span></div>
     <p className="eyebrow">SESSION AKTIF</p>
