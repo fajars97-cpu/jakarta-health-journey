@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, ShieldCheck } from "lucide-react";
 import { useState } from "react";
+import { AppwritePing } from "@/components/appwrite/appwrite-ping";
 
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const nav = [["Jelajahi", "/explore"], ["Dukungan perjalanan", "/support"], ["Feedback", "/feedback"]] as const;
@@ -12,7 +13,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
   const [en, setEn] = useState(false);
   const [open, setOpen] = useState(false);
 
-  return <>
+  return <><AppwritePing />
     <header style={{ borderBottom: "1px solid #d9e5eb", background: "rgba(255,255,255,.96)", position: "sticky", top: 0, zIndex: 20, backdropFilter: "blur(12px)" }}>
       <div className="container" style={{ minHeight: 78, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 18 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
