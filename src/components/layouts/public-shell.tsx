@@ -13,7 +13,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
   const [en, setEn] = useState(false);
   const [open, setOpen] = useState(false);
 
-  return <><AppwritePing />
+  return <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}><AppwritePing />
     <header style={{ borderBottom: "1px solid #d9e5eb", background: "rgba(255,255,255,.96)", position: "sticky", top: 0, zIndex: 20, backdropFilter: "blur(12px)" }}>
       <div className="container" style={{ minHeight: 78, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 18 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
@@ -38,8 +38,8 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
         {nav.map(([label, href]) => <Link key={href} href={href} onClick={() => setOpen(false)}>{label}</Link>)}
       </div>}
     </header>
-    {children}
-    <footer style={{ background: "var(--navy)", color: "#dcebf3", marginTop: 64, padding: "38px 0" }}>
+    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>{children}</div>
+    <footer style={{ background: "var(--navy)", color: "#dcebf3", marginTop: "auto", padding: "38px 0" }}>
       <div className="container" style={{ display: "flex", justifyContent: "space-between", gap: 20, flexWrap: "wrap", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
           <Image src={`${publicBasePath}/images/logo-dki-jakarta.png`} alt="Lambang Provinsi DKI Jakarta" width={34} height={39} style={{ objectFit: "contain" }} />
@@ -49,5 +49,5 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
         <div style={{ display: "flex", gap: 8, fontSize: 13, maxWidth: 470 }}><ShieldCheck size={18} /><span>Platform informasi publik. Bukan pengganti konsultasi medis atau layanan gawat darurat.</span></div>
       </div>
     </footer>
-  </>;
+  </div>;
 }
