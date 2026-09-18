@@ -1,0 +1,4 @@
+/* Preserve the portrait panels' natural aspect ratio; crop vertically instead of stretching people. */
+.hospital-person-image{height:260px;background-size:300% auto;background-position-y:22%}
+.hospital-crop-left{background-position-x:left}.hospital-crop-center{background-position-x:center}.hospital-crop-right{background-position-x:right}
+@media(max-width:560px){.hospital-person-image{height:320px;background-position-y:20%}}
