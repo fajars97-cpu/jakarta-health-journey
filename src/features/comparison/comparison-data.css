@@ -1,0 +1,4 @@
+.compare-price{margin:18px 0 4px;padding:15px;border:1px solid #cce7e2;border-radius:13px;background:linear-gradient(135deg,#eefaf7,#f9fdfc)}
+.compare-price span,.compare-price small{display:block;color:#557383;font-size:11px;line-height:1.45}.compare-price span{font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#087d73}.compare-price strong{display:block;margin:4px 0;color:var(--coral);font:700 25px/1.1 var(--serif)}
+.compare-card dl>div{padding:12px 0}.compare-card dl dt{font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:#5a7685}.compare-card dl dd{line-height:1.5}.compare-card dl ul{margin:0;padding-left:17px}.compare-card dl li+li{margin-top:4px}.compare-secondary{background:#f6fafb;margin:4px -4px 14px;padding:12px!important;border-radius:9px}.compare-secondary dd{font-size:12px}
+@media(max-width:700px){.compare-price strong{font-size:23px}}
