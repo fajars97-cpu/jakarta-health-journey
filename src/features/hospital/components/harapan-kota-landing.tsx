@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Award, Baby, BedDouble, Check, ChevronRight, CircleDollarSign, HeartPulse, Hospital, Languages, MapPin, ShieldCheck, Sparkles, Stethoscope } from "lucide-react";
 import { InquiryForm } from "@/features/public-forms/components/forms";
+import { ComparisonPicker } from "@/features/comparison/components/comparison-ui";
 import { harapanKotaPackages, harapanKotaProfessionals, harapanKotaReviews, harapanKotaServices } from "@/features/hospital/data/harapan-kota";
 
 const serviceIcons = { heart: HeartPulse, baby: Baby, bone: Stethoscope, scan: Sparkles, nutrition: CircleDollarSign, support: Languages } as const;
@@ -15,7 +16,7 @@ export function HarapanKotaLanding() {
           <div className="hospital-label"><ShieldCheck size={15} /> Mitra fasyankes terverifikasi</div>
           <h1>Perawatan yang terasa <em>lebih dekat.</em></h1>
           <p>RS Harapan Kota adalah rumah sakit umum contoh dengan layanan ibu & anak, jantung, ortopedi, dan pemeriksaan preventif untuk pasien Jakarta maupun pasien dari luar kota.</p>
-          <div className="hospital-hero-actions"><a className="btn btn-coral" href="#paket">Lihat paket layanan <ArrowUpRight size={17} /></a><a className="btn btn-outline" href="#inquiry">Ajukan inquiry</a></div>
+          <div className="hospital-hero-actions"><a className="btn btn-coral" href="#paket">Lihat paket layanan <ArrowUpRight size={17} /></a><a className="btn btn-outline" href="#inquiry">Ajukan inquiry</a></div><ComparisonPicker organizationId="01" services={[...harapanKotaServices.map((item) => item.name), ...harapanKotaPackages.map((item) => item.name)]} />
           <div className="hospital-metrics"><span><b>24/7</b>IGD & layanan awal</span><span><b>3 bahasa</b>dukungan koordinasi</span><span><b>1–2 hari</b>respon inquiry</span></div>
         </div>
         <div className="hospital-hero-panel">
