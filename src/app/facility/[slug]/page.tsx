@@ -5,6 +5,7 @@ import { PublicShell } from "@/components/layouts/public-shell";
 import { InquiryForm } from "@/features/public-forms/components/forms";
 import { HarapanKotaLanding } from "@/features/hospital/components/harapan-kota-landing";
 import { PartnerLanding } from "@/features/hospital/components/partner-landing";
+import { HotelLanding } from "@/features/hotel/components/hotel-landing";
 import { dataService } from "@/services/data-service";
 
 export async function generateStaticParams() { return dataService.listOrganizations().map((organization) => ({ slug: organization.slug })); }
@@ -15,6 +16,7 @@ export default async function Detail({ params }: { params: Promise<{ slug: strin
   if (!partner) notFound();
   if (slug === "harapan-kota") return <PublicShell><HarapanKotaLanding /></PublicShell>;
   if (["sahabat-keluarga", "cakrawala-medika", "mentari-prima", "sehat-sudirman"].includes(slug)) return <PublicShell><PartnerLanding partner={partner} /></PublicShell>;
+  if (["teduh-cikini", "selaras-kemang"].includes(slug)) return <PublicShell><HotelLanding partner={partner} /></PublicShell>;
   const isFacility = ["Rumah Sakit", "Klinik"].includes(partner.type);
   return <PublicShell><main className="container" style={{ padding: "42px 0" }}>
     <Link href={isFacility ? "/explore" : "/support"} className="hint">← Kembali ke katalog</Link>
