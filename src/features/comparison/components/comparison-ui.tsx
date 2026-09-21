@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Check, ChevronDown, CircleAlert, Scale, Trash2 } from "lucide-react";
+import { CircleAlert, Scale, Trash2 } from "lucide-react";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { organizations } from "@/data/demo/mock-data";
 import { PartnerType } from "@/types/domain";
@@ -19,17 +19,17 @@ function subscribe(callback: () => void) { window.addEventListener(eventName, ca
 function snapshot() { return window.localStorage.getItem(storageKey) ?? "[]"; }
 function useComparisonItems(): ResolvedComparisonItem[] { const serialized = useSyncExternalStore(subscribe, snapshot, () => "[]"); return useMemo(() => { try { return (JSON.parse(serialized) as ComparisonItem[]).map((item) => ({ ...item, group: item.group ?? groupOf(organizations.find((organization) => organization.id === item.organizationId)?.type ?? PartnerType.Hospital) })); } catch { return []; } }, [serialized]); }
 
-export function ComparisonPicker({ organizationId, services, compact = false }: { organizationId: string; services: string[]; compact?: boolean }) {
+export function ComparisonPackageButton({ organizationId, service }: { organizationId: string; service: string }) {
   const items = useComparisonItems(); const [notice, setNotice] = useState("");
-  function toggle(service: string) {
+  const selected = items.some((item) => keyOf(item) === `${organizationId}:${service}`);
+  function toggle() {
     const organization = organizations.find((candidate) => candidate.id === organizationId); if (!organization) return;
-    const group = groupOf(organization.type); const entry: ComparisonItem = { organizationId, service, group }; const selected = items.some((item) => keyOf(item) === keyOf(entry));
-    if (!selected && items.length > 0 && items[0].group !== group) { setNotice(`Daftar ini berisi ${groupLabel(items[0].group!)}. Kosongkan daftar sebelum membandingkan ${groupLabel(group)}.`); return; }
-    if (!selected && items.length >= 5) { setNotice("Maksimal lima layanan dapat dibandingkan sekaligus."); return; }
-    const next = selected ? items.filter((item) => keyOf(item) !== keyOf(entry)) : [...items, entry]; persist(next); setNotice("");
+    const group = groupOf(organization.type); const entry: ResolvedComparisonItem = { organizationId, service, group };
+    if (!selected && items.length > 0 && items[0].group !== group) { setNotice(`Daftar berisi ${groupLabel(items[0].group)}. Kosongkan daftar untuk membandingkan ${groupLabel(group)}.`); return; }
+    if (!selected && items.length >= 5) { setNotice("Maksimal lima paket dapat dibandingkan."); return; }
+    persist(selected ? items.filter((item) => keyOf(item) !== keyOf(entry)) : [...items, entry]); setNotice("");
   }
-  const organization = organizations.find((candidate) => candidate.id === organizationId); const label = organization ? groupLabel(groupOf(organization.type)) : "layanan"; const selectedHere = items.filter((item) => item.organizationId === organizationId).length;
-  return <details className={`comparison-picker ${compact ? "comparison-picker-compact" : ""}`}><summary><Scale size={16} /> Tandai untuk dibandingkan {selectedHere > 0 && <b>{selectedHere}</b>}<ChevronDown size={15} /></summary><div><p>Pilih hingga 5 layanan sejenis. {label[0].toUpperCase() + label.slice(1)} hanya dapat dibandingkan dalam kelompok yang sama.</p>{services.map((service) => { const active = items.some((item) => keyOf(item) === `${organizationId}:${service}`); return <label key={service}><input type="checkbox" checked={active} onChange={() => toggle(service)} /><span>{service}</span>{active && <Check size={15} />}</label>; })}{notice && <small><CircleAlert size={14} />{notice}</small>}<Link href="/compare" className="btn btn-outline btn-sm"><Scale size={15} /> Buka perbandingan ({items.length}/5)</Link></div></details>;
+  return <div className="comparison-package-action"><button type="button" onClick={toggle} className={selected ? "comparison-package-selected" : ""}><Scale size={15} />{selected ? "Ditandai untuk dibandingkan" : "Bandingkan paket"}</button>{notice && <small><CircleAlert size={13} />{notice}</small>}</div>;
 }
 
 export function ComparisonHeaderLink() { const count = useComparisonItems().length; return <Link href="/compare" className="btn btn-outline btn-sm hide-mobile" aria-label={`Bandingkan layanan, ${count} dipilih`}><Scale size={16} />Bandingkan{count > 0 && <span className="comparison-count">{count}</span>}</Link>; }
