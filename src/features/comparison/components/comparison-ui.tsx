@@ -15,6 +15,13 @@ type ComparisonItem = {
 };
 type ResolvedComparisonItem = ComparisonItem & { group: ComparisonGroup };
 
+const comparisonGroups: { id: ComparisonGroup; label: string; emptyTitle: string; emptyCopy: string; href: string }[] = [
+  { id: "fasyankes", label: "Fasyankes", emptyTitle: "Belum ada paket fasyankes.", emptyCopy: "Tandai paket dari rumah sakit atau klinik untuk melihat harga dan cakupannya berdampingan.", href: "/explore" },
+  { id: "hotel", label: "Hotel", emptyTitle: "Belum ada pilihan kamar hotel.", emptyCopy: "Tandai kamar hotel untuk membandingkan tarif, fasilitas, dan ketentuan menginap.", href: "/support" },
+  { id: "travel", label: "Travel agent", emptyTitle: "Belum ada layanan travel agent.", emptyCopy: "Tandai layanan perjalanan untuk membandingkan pilihan dukungan transportasi non-medis.", href: "/support" },
+  { id: "translator", label: "Penerjemah", emptyTitle: "Belum ada layanan penerjemah.", emptyCopy: "Tandai layanan penerjemah untuk membandingkan bahasa, tarif, dan dukungan pendampingan.", href: "/support" },
+];
+
 const storageKey = "jhj-service-comparison";
 const eventName = "jhj-comparison-updated";
 
@@ -26,9 +33,7 @@ function groupOf(type: PartnerType): ComparisonGroup {
 }
 
 function groupLabel(group: ComparisonGroup) {
-  if (group === "fasyankes") return "fasyankes (rumah sakit atau klinik)";
-  if (group === "travel") return "travel agent";
-  return group;
+  return comparisonGroups.find((item) => item.id === group)?.label ?? group;
 }
 
 function persist(items: ComparisonItem[]) {
@@ -91,15 +96,8 @@ export function ComparisonPackageButton({
     const group = groupOf(organization.type);
     const entry: ResolvedComparisonItem = { organizationId, service, group };
 
-    if (!selected && items.length > 0 && items[0].group !== group) {
-      setNotice(
-        `Daftar berisi ${groupLabel(items[0].group)}. Kosongkan daftar untuk membandingkan ${groupLabel(group)}.`,
-      );
-      return;
-    }
-
-    if (!selected && items.length >= 5) {
-      setNotice("Maksimal lima paket dapat dibandingkan.");
+    if (!selected && items.filter((item) => item.group === group).length >= 5) {
+      setNotice(`Maksimal lima pilihan ${groupLabel(group)} dapat dibandingkan.`);
       return;
     }
 
@@ -155,23 +153,24 @@ function ListValue({ values }: { values: string[] }) {
 
 export function ComparisonWorkspace() {
   const items = useComparisonItems();
+  const [activeGroup, setActiveGroup] = useState<ComparisonGroup>("fasyankes");
+  const activeTab = comparisonGroups.find((group) => group.id === activeGroup) ?? comparisonGroups[0];
   const details = useMemo(
     () =>
-      items.flatMap((item) => {
+      items.filter((item) => item.group === activeGroup).flatMap((item) => {
         const organization = organizations.find((candidate) => candidate.id === item.organizationId);
         return organization ? [{ item, organization }] : [];
       }),
-    [items],
+    [items, activeGroup],
   );
   const distinctOrganizations = new Set(details.map((detail) => detail.organization.id)).size;
-  const group = details[0]?.item.group;
 
   function remove(item: ComparisonItem) {
     persist(items.filter((entry) => keyOf(entry) !== keyOf(item)));
   }
 
   function clear() {
-    persist([]);
+    persist(items.filter((item) => item.group !== activeGroup));
   }
 
   return (
@@ -188,13 +187,20 @@ export function ComparisonWorkspace() {
         </p>
       </section>
 
+      <section className="container compare-tabs" aria-label="Kategori perbandingan">
+        {comparisonGroups.map((group) => {
+          const count = items.filter((item) => item.group === group.id).length;
+          return <button type="button" key={group.id} onClick={() => setActiveGroup(group.id)} className={activeGroup === group.id ? "compare-tab-active" : ""}>{group.label}<span>{count}</span></button>;
+        })}
+      </section>
+
       {details.length === 0 ? (
         <section className="container compare-empty">
           <Scale size={32} />
-          <h2>Belum ada paket yang ditandai.</h2>
+          <h2>{activeTab.emptyTitle}</h2>
           <p>Buka halaman mitra dan pilih “Bandingkan paket” pada kartu paket yang ingin Anda lihat berdampingan.</p>
-          <Link href="/explore" className="btn btn-primary">
-            Jelajahi mitra
+          <Link href={activeTab.href} className="btn btn-primary">
+            Jelajahi {activeTab.label}
           </Link>
         </section>
       ) : (
@@ -202,7 +208,7 @@ export function ComparisonWorkspace() {
           <div className="compare-toolbar">
             <span>
               <b>
-                {details.length}/5 paket {group && `· ${groupLabel(group)}`}
+                {details.length}/5 pilihan · {activeTab.label}
               </b>
               {distinctOrganizations < 2 && " · Tambahkan paket dari mitra lain untuk membandingkan."}
             </span>

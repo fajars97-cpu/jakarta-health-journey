@@ -242,6 +242,26 @@ const fallbackData: PackageComparisonData = {
   cancellation: "Dikonfirmasi mitra",
 };
 
+function supportOffer(category: string, priceFrom: string, duration: string, included: string[]): PackageComparisonData {
+  return { category, priceFrom, included, excluded: ["Biaya pihak ketiga, pengeluaran pribadi, dan layanan di luar durasi"], duration, stay: "Tidak termasuk akomodasi", team: category === "Layanan penerjemah" ? "Penerjemah dan koordinator bahasa" : "Pengemudi/koordinator perjalanan", requirements: "Tanggal, waktu, dan kebutuhan dasar dikonfirmasi melalui inquiry.", availability: "Bergantung jadwal mitra dan konfirmasi inquiry.", cancellation: "Ketentuan perubahan mengikuti konfirmasi mitra." };
+}
+
+const supportOfferData: Record<string, PackageComparisonData> = {
+  "08:Airport Welcome": supportOffer("Layanan travel agent", "Rp450.000", "Satu perjalanan", ["Kendaraan privat", "Pengemudi berbahasa Indonesia", "Koordinasi titik jemput"]),
+  "08:Care Visit Transfer": supportOffer("Layanan travel agent", "Rp650.000", "Satu perjalanan", ["Kendaraan privat", "Waktu tunggu dasar", "Koordinasi rute"]),
+  "08:Jakarta Stay Assist": supportOffer("Layanan travel agent", "Rp1.850.000", "Hingga 3 hari", ["Koordinasi transportasi", "Bantuan itinerary non-medis", "Satu contact person"]),
+  "09:City Arrival Transfer": supportOffer("Layanan travel agent", "Rp500.000", "Satu perjalanan", ["Kendaraan privat", "Bantuan bagasi dasar", "Koordinasi titik jemput"]),
+  "09:Flexible Day Driver": supportOffer("Layanan travel agent", "Rp1.250.000", "Hingga 8 jam", ["Kendaraan dan pengemudi", "Rute dalam Jakarta", "Koordinasi perubahan jadwal"]),
+  "09:Family Travel Plan": supportOffer("Layanan travel agent", "Rp2.200.000", "Hingga 3 hari", ["Rencana perjalanan", "Koordinasi transportasi", "Dukungan contact person"]),
+  "10:Interpreter On-call": supportOffer("Layanan penerjemah", "Rp750.000 / hari", "Hingga 4 jam", ["Indonesia · English", "Koordinasi pra-kunjungan", "Penerjemah terjadwal"]),
+  "10:Full-day Language Support": supportOffer("Layanan penerjemah", "Rp1.400.000 / hari", "Hingga 8 jam", ["Briefing kebutuhan", "Ringkasan non-klinis", "Penerjemah terjadwal"]),
+  "10:Family Communication Assist": supportOffer("Layanan penerjemah", "Rp1.850.000 / hari", "Hingga 8 jam", ["Koordinasi multi-lokasi", "Penerjemah bersiaga", "Briefing kebutuhan"]),
+  "11:Mandarin Care Companion": supportOffer("Layanan penerjemah", "Rp900.000 / hari", "Hingga 4 jam", ["Indonesia · Mandarin", "Briefing kebutuhan", "Penerjemah terjadwal"]),
+  "11:Full-day Interpreter": supportOffer("Layanan penerjemah", "Rp1.500.000 / hari", "Hingga 8 jam", ["Indonesia · English/Mandarin", "Koordinasi pra-kunjungan", "Penerjemah bersiaga"]),
+  "11:Arrival & Stay Support": supportOffer("Layanan penerjemah", "Rp2.000.000 / hari", "Hingga 8 jam", ["Koordinasi hotel/travel", "Penerjemah bersiaga", "Dukungan bahasa"]),
+};
+
 export function getPackageComparisonData(organizationId: string, service: string) {
-  return packageData[`${organizationId}:${service}`] ?? fallbackData;
+  const key = `${organizationId}:${service}`;
+  return packageData[key] ?? supportOfferData[key] ?? fallbackData;
 }
