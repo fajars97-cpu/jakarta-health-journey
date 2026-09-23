@@ -2,12 +2,16 @@ import Link from "next/link";
 import { ArrowUpRight, Award, Baby, BedDouble, Check, ChevronRight, CircleDollarSign, HeartPulse, Hospital, Languages, MapPin, ShieldCheck, Sparkles, Stethoscope } from "lucide-react";
 import { InquiryForm } from "@/features/public-forms/components/forms";
 import { ComparisonPackageButton } from "@/features/comparison/components/comparison-ui";
+import { FacilityAccess } from "@/features/facility-access/components/facility-access";
+import { organizations } from "@/data/demo/mock-data";
 import { harapanKotaPackages, harapanKotaProfessionals, harapanKotaReviews, harapanKotaServices } from "@/features/hospital/data/harapan-kota";
 
 const serviceIcons = { heart: HeartPulse, baby: Baby, bone: Stethoscope, scan: Sparkles, nutrition: CircleDollarSign, support: Languages } as const;
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function HarapanKotaLanding() {
+  const partner = organizations.find((organization) => organization.slug === "harapan-kota");
+  if (!partner) return null;
   return <main className="hospital-page">
     <section className="hospital-hero">
       <div className="container hospital-hero-grid">
@@ -41,6 +45,8 @@ export function HarapanKotaLanding() {
     <section className="hospital-section hospital-awards"><div className="container hospital-awards-grid"><div><p className="eyebrow">MUTU & KEPERCAYAAN</p><h2 className="section-title">Standar yang dapat Anda tanyakan.</h2><p>Setiap mitra di Jakarta Health Journey melalui proses verifikasi informasi layanan. Dokumen dan klaim resmi tetap perlu diperiksa oleh tim pengelola sebelum dipublikasikan.</p></div><div className="hospital-award-list"><article><Award /><div><b>Akreditasi paripurna</b><span>Status akreditasi — contoh konten</span></div></article><article><ShieldCheck /><div><b>Komitmen keselamatan pasien</b><span>Program mutu & keselamatan — contoh konten</span></div></article><article><HeartPulse /><div><b>Excellence in maternal care</b><span>Penghargaan layanan ibu & anak — contoh</span></div></article></div></div></section>
 
     <section className="hospital-section"><div className="container"><div className="hospital-section-heading"><div><p className="eyebrow">FASILITAS</p><h2 className="section-title">Dibuat agar waktu tunggu terasa lebih ringan.</h2></div></div><div className="hospital-facilities">{[["Ruang bersalin privat","Pilihan ruang bersalin dengan pendampingan keluarga sesuai kebijakan fasilitas."],["Unit perawatan ibu & bayi","Ruang rawat yang mendukung kedekatan ibu dan bayi selama masa pemulihan."],["Lounge keluarga","Area tunggu yang tenang, Wi-Fi, dan informasi kunjungan yang mudah diakses."],["Aksesibilitas dasar","Rute kursi roda, lift, dan ruang tunggu prioritas pada area tertentu."],["Farmasi & laboratorium","Koordinasi kebutuhan penunjang sesuai arahan dokter dan jam operasional."],["Ruang edukasi pasien","Sesi persiapan pulang, edukasi perawatan, dan koordinasi pendamping." ]].map(([title, copy]) => <article key={title}><BedDouble size={22} /><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
+
+    <FacilityAccess partner={partner} />
 
     <section className="hospital-section hospital-soft"><div className="container"><div className="hospital-section-heading"><div><p className="eyebrow">CERITA PASIEN</p><h2 className="section-title">Kesan baik dimulai dari informasi yang jelas.</h2></div><a className="hospital-text-link" href="#review-note">Kebijakan ulasan <ChevronRight size={16} /></a></div><div className="hospital-review-grid">{harapanKotaReviews.map((review) => <figure key={review.name}><div>“</div><blockquote>{review.quote}</blockquote><figcaption><b>{review.name}</b><span>{review.context}</span></figcaption></figure>)}</div><p id="review-note" className="hospital-disclaimer">Ulasan di atas adalah contoh untuk kebutuhan desain MVP. Saat terintegrasi, tautan akan mengarah ke sumber ulasan yang telah diverifikasi dan mengikuti kebijakan moderasi.</p></div></section>
 
