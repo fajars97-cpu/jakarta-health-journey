@@ -8,7 +8,7 @@ import { AppwritePing } from "@/components/appwrite/appwrite-ping";
 import { ComparisonHeaderLink } from "@/features/comparison/components/comparison-ui";
 
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const nav = [["Jelajahi", "/explore"], ["Dukungan perjalanan", "/support"], ["Feedback", "/feedback"]] as const;
+const nav = [["Jelajahi", "/explore"], ["Panduan", "/guide"], ["Dukungan perjalanan", "/support"], ["Feedback", "/feedback"]] as const;
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   const [en, setEn] = useState(false);
