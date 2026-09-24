@@ -5,6 +5,8 @@ import { CircleAlert, Scale, Trash2 } from "lucide-react";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { organizations } from "@/data/demo/mock-data";
 import { getPackageComparisonData } from "@/features/comparison/data/package-comparison";
+import { CurrencyPrice } from "@/features/currency/currency-context";
+import { useLanguage } from "@/features/i18n/language-context";
 import { PartnerType } from "@/types/domain";
 
 type ComparisonGroup = "fasyankes" | "hotel" | "travel" | "translator";
@@ -15,11 +17,11 @@ type ComparisonItem = {
 };
 type ResolvedComparisonItem = ComparisonItem & { group: ComparisonGroup };
 
-const comparisonGroups: { id: ComparisonGroup; label: string; emptyTitle: string; emptyCopy: string; href: string }[] = [
-  { id: "fasyankes", label: "Fasyankes", emptyTitle: "Belum ada paket fasyankes.", emptyCopy: "Tandai paket dari rumah sakit atau klinik untuk melihat harga dan cakupannya berdampingan.", href: "/explore" },
-  { id: "hotel", label: "Hotel", emptyTitle: "Belum ada pilihan kamar hotel.", emptyCopy: "Tandai kamar hotel untuk membandingkan tarif, fasilitas, dan ketentuan menginap.", href: "/support" },
-  { id: "travel", label: "Travel agent", emptyTitle: "Belum ada layanan travel agent.", emptyCopy: "Tandai layanan perjalanan untuk membandingkan pilihan dukungan transportasi non-medis.", href: "/support" },
-  { id: "translator", label: "Penerjemah", emptyTitle: "Belum ada layanan penerjemah.", emptyCopy: "Tandai layanan penerjemah untuk membandingkan bahasa, tarif, dan dukungan pendampingan.", href: "/support" },
+const comparisonGroups: { id: ComparisonGroup; label: string; labelEn: string; emptyTitle: string; emptyTitleEn: string; emptyCopy: string; emptyCopyEn: string; href: string }[] = [
+  { id: "fasyankes", label: "Fasyankes", labelEn: "Healthcare", emptyTitle: "Belum ada paket fasyankes.", emptyTitleEn: "No healthcare packages yet.", emptyCopy: "Tandai paket dari rumah sakit atau klinik untuk melihat harga dan cakupannya berdampingan.", emptyCopyEn: "Mark a hospital or clinic package to compare prices and inclusions side by side.", href: "/explore" },
+  { id: "hotel", label: "Hotel", labelEn: "Hotels", emptyTitle: "Belum ada pilihan kamar hotel.", emptyTitleEn: "No hotel rooms yet.", emptyCopy: "Tandai kamar hotel untuk membandingkan tarif, fasilitas, dan ketentuan menginap.", emptyCopyEn: "Mark hotel rooms to compare rates, facilities, and stay terms.", href: "/support" },
+  { id: "travel", label: "Travel agent", labelEn: "Travel agents", emptyTitle: "Belum ada layanan travel agent.", emptyTitleEn: "No travel services yet.", emptyCopy: "Tandai layanan perjalanan untuk membandingkan pilihan dukungan transportasi non-medis.", emptyCopyEn: "Mark travel services to compare non-medical transport support.", href: "/support" },
+  { id: "translator", label: "Penerjemah", labelEn: "Interpreters", emptyTitle: "Belum ada layanan penerjemah.", emptyTitleEn: "No interpreter services yet.", emptyCopy: "Tandai layanan penerjemah untuk membandingkan bahasa, tarif, dan dukungan pendampingan.", emptyCopyEn: "Mark interpreter services to compare languages, rates, and companion support.", href: "/support" },
 ];
 
 const storageKey = "jhj-service-comparison";
@@ -32,8 +34,9 @@ function groupOf(type: PartnerType): ComparisonGroup {
   return "translator";
 }
 
-function groupLabel(group: ComparisonGroup) {
-  return comparisonGroups.find((item) => item.id === group)?.label ?? group;
+function groupLabel(group: ComparisonGroup, isEnglish = false) {
+  const item = comparisonGroups.find((candidate) => candidate.id === group);
+  return (isEnglish ? item?.labelEn : item?.label) ?? group;
 }
 
 function persist(items: ComparisonItem[]) {
@@ -86,6 +89,7 @@ export function ComparisonPackageButton({
   service: string;
 }) {
   const items = useComparisonItems();
+  const { isEnglish } = useLanguage();
   const [notice, setNotice] = useState("");
   const selected = items.some((item) => keyOf(item) === `${organizationId}:${service}`);
 
@@ -97,7 +101,7 @@ export function ComparisonPackageButton({
     const entry: ResolvedComparisonItem = { organizationId, service, group };
 
     if (!selected && items.filter((item) => item.group === group).length >= 5) {
-      setNotice(`Maksimal lima pilihan ${groupLabel(group)} dapat dibandingkan.`);
+      setNotice(isEnglish ? `You can compare up to five ${groupLabel(group, true)} options.` : `Maksimal lima pilihan ${groupLabel(group)} dapat dibandingkan.`);
       return;
     }
 
@@ -113,7 +117,7 @@ export function ComparisonPackageButton({
         className={selected ? "comparison-package-selected" : ""}
       >
         <Scale size={15} />
-        {selected ? "Ditandai untuk dibandingkan" : "Bandingkan paket"}
+        {selected ? (isEnglish ? "Marked for comparison" : "Ditandai untuk dibandingkan") : (isEnglish ? "Compare package" : "Bandingkan paket")}
       </button>
       {notice && (
         <small>
@@ -127,15 +131,16 @@ export function ComparisonPackageButton({
 
 export function ComparisonHeaderLink() {
   const count = useComparisonItems().length;
+  const { isEnglish } = useLanguage();
 
   return (
     <Link
       href="/compare"
       className="btn btn-outline btn-sm hide-mobile"
-      aria-label={`Bandingkan layanan, ${count} dipilih`}
+      aria-label={isEnglish ? `Compare services, ${count} selected` : `Bandingkan layanan, ${count} dipilih`}
     >
       <Scale size={16} />
-      Bandingkan
+      {isEnglish ? "Compare" : "Bandingkan"}
       {count > 0 && <span className="comparison-count">{count}</span>}
     </Link>
   );
@@ -152,9 +157,11 @@ function ListValue({ values }: { values: string[] }) {
 }
 
 export function ComparisonWorkspace() {
+  const { isEnglish } = useLanguage();
   const items = useComparisonItems();
   const [activeGroup, setActiveGroup] = useState<ComparisonGroup>("fasyankes");
   const activeTab = comparisonGroups.find((group) => group.id === activeGroup) ?? comparisonGroups[0];
+  const activeLabel = isEnglish ? activeTab.labelEn : activeTab.label;
   const details = useMemo(
     () =>
       items.filter((item) => item.group === activeGroup).flatMap((item) => {
@@ -177,30 +184,26 @@ export function ComparisonWorkspace() {
     <main className="compare-page">
       <section className="container compare-intro">
         <p className="eyebrow">
-          <Scale size={14} /> PERBANDINGAN PAKET
+          <Scale size={14} /> {isEnglish ? "PACKAGE COMPARISON" : "PERBANDINGAN PAKET"}
         </p>
-        <h1 className="section-title">Bandingkan pilihan Anda, dengan lebih jernih.</h1>
-        <p>
-          Harga, cakupan, dan ketentuan paket ditampilkan berdampingan agar Anda dapat
-          menyiapkan inquiry dengan lebih baik. Informasi ini adalah ilustrasi MVP dan bukan
-          rekomendasi medis.
-        </p>
+        <h1 className="section-title">{isEnglish ? "Compare your options with greater clarity." : "Bandingkan pilihan Anda, dengan lebih jernih."}</h1>
+        <p>{isEnglish ? "Prices, inclusions, and package terms are shown side by side to help you prepare an inquiry. This MVP information is illustrative and is not medical advice." : "Harga, cakupan, dan ketentuan paket ditampilkan berdampingan agar Anda dapat menyiapkan inquiry dengan lebih baik. Informasi ini adalah ilustrasi MVP dan bukan rekomendasi medis."}</p>
       </section>
 
       <section className="container compare-tabs" aria-label="Kategori perbandingan">
         {comparisonGroups.map((group) => {
           const count = items.filter((item) => item.group === group.id).length;
-          return <button type="button" key={group.id} onClick={() => setActiveGroup(group.id)} className={activeGroup === group.id ? "compare-tab-active" : ""}>{group.label}<span>{count}</span></button>;
+          return <button type="button" key={group.id} onClick={() => setActiveGroup(group.id)} className={activeGroup === group.id ? "compare-tab-active" : ""}>{isEnglish ? group.labelEn : group.label}<span>{count}</span></button>;
         })}
       </section>
 
       {details.length === 0 ? (
         <section className="container compare-empty">
           <Scale size={32} />
-          <h2>{activeTab.emptyTitle}</h2>
+          <h2>{isEnglish ? activeTab.emptyTitleEn : activeTab.emptyTitle}</h2>
           <p>Buka halaman mitra dan pilih “Bandingkan paket” pada kartu paket yang ingin Anda lihat berdampingan.</p>
           <Link href={activeTab.href} className="btn btn-primary">
-            Jelajahi {activeTab.label}
+            {isEnglish ? "Explore" : "Jelajahi"} {activeLabel}
           </Link>
         </section>
       ) : (
@@ -213,7 +216,7 @@ export function ComparisonWorkspace() {
               {distinctOrganizations < 2 && " · Tambahkan paket dari mitra lain untuk membandingkan."}
             </span>
             <button type="button" className="btn btn-outline btn-sm" onClick={clear}>
-              <Trash2 size={15} /> Kosongkan
+              <Trash2 size={15} /> {isEnglish ? "Clear" : "Kosongkan"}
             </button>
           </div>
 
@@ -241,57 +244,57 @@ export function ComparisonWorkspace() {
                     <h3>{organization.name}</h3>
 
                     <div className="compare-price">
-                      <span>Harga mulai</span>
-                      <strong>{packageInfo.priceFrom}</strong>
+                      <span>{isEnglish ? "Starting price" : "Harga mulai"}</span>
+                      <strong><CurrencyPrice value={packageInfo.priceFrom} /></strong>
                       {packageInfo.estimatedRange && (
-                        <small>Estimasi total: {packageInfo.estimatedRange}</small>
+                        <small><CurrencyPrice value={`Estimasi total: ${packageInfo.estimatedRange}`} /></small>
                       )}
                     </div>
 
                     <dl>
                       <div>
-                        <dt>Jenis paket</dt>
+                        <dt>{isEnglish ? "Package type" : "Jenis paket"}</dt>
                         <dd>{packageInfo.category}</dd>
                       </div>
                       <div>
-                        <dt>Termasuk</dt>
+                        <dt>{isEnglish ? "Included" : "Termasuk"}</dt>
                         <dd><ListValue values={packageInfo.included} /></dd>
                       </div>
                       <div>
-                        <dt>Tidak termasuk</dt>
+                        <dt>{isEnglish ? "Not included" : "Tidak termasuk"}</dt>
                         <dd><ListValue values={packageInfo.excluded} /></dd>
                       </div>
                       <div>
-                        <dt>Durasi</dt>
+                        <dt>{isEnglish ? "Duration" : "Durasi"}</dt>
                         <dd>{packageInfo.duration}</dd>
                       </div>
                       <div>
-                        <dt>Rawat inap / kamar</dt>
+                        <dt>{isEnglish ? "Stay / room" : "Rawat inap / kamar"}</dt>
                         <dd>{packageInfo.stay}</dd>
                       </div>
                       <div>
-                        <dt>Tim terkait</dt>
+                        <dt>{isEnglish ? "Team" : "Tim terkait"}</dt>
                         <dd>{packageInfo.team}</dd>
                       </div>
                       <div>
-                        <dt>Syarat awal</dt>
+                        <dt>{isEnglish ? "Requirements" : "Syarat awal"}</dt>
                         <dd>{packageInfo.requirements}</dd>
                       </div>
                       <div>
-                        <dt>Ketersediaan</dt>
+                        <dt>{isEnglish ? "Availability" : "Ketersediaan"}</dt>
                         <dd>{packageInfo.availability}</dd>
                       </div>
                       <div>
-                        <dt>Perubahan / pembatalan</dt>
+                        <dt>{isEnglish ? "Changes / cancellation" : "Perubahan / pembatalan"}</dt>
                         <dd>{packageInfo.cancellation}</dd>
                       </div>
                       <div className="compare-secondary">
-                        <dt>Area & bahasa</dt>
+                        <dt>{isEnglish ? "Area & languages" : "Area & bahasa"}</dt>
                         <dd>{organization.area} · {organization.languages.join(" · ")}</dd>
                       </div>
                     </dl>
                     <Link href={`/facility/${organization.slug}`} className="btn btn-outline btn-sm">
-                      Lihat mitra
+                      {isEnglish ? "View partner" : "Lihat mitra"}
                     </Link>
                   </article>
                 );

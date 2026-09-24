@@ -16,6 +16,7 @@ import {
 import type { Organization } from "@/types/domain";
 import { InquiryForm } from "@/features/public-forms/components/forms";
 import { ComparisonPackageButton } from "@/features/comparison/components/comparison-ui";
+import { CurrencyPrice } from "@/features/currency/currency-context";
 
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -125,7 +126,7 @@ export function HotelLanding({ partner }: { partner: Organization }) {
               <article className="hotel-room-card" key={room.name}>
                 <div className={`hotel-room-visual hotel-room-visual-${index + 1}`} style={{ backgroundImage: `linear-gradient(180deg, transparent 42%, #082b4a99), url(${publicBasePath}/images/hotels/${roomImage})` }}><BedDouble size={36} /><span>{room.size}</span></div>
                 <h3>{room.name}</h3>
-                <strong>{room.price}</strong>
+                <strong><CurrencyPrice value={room.price} /></strong>
                 <small>{room.bed}</small>
                 <p>{room.copy}</p>
                 <ul>{room.features.map((feature) => <li key={feature}><Check size={14} />{feature}</li>)}</ul>
