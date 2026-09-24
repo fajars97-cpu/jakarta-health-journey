@@ -13,15 +13,16 @@ Buka `http://localhost:3000`. Verifikasi teknis tersedia melalui `npm run lint`,
 
 ## Environment dan mode demo
 
-Salin `.env.example` menjadi `.env.local` lalu isi `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_ANON_KEY` untuk mulai menghubungkan Supabase. Tanpa variabel tersebut aplikasi tetap berjalan memakai data in-memory fiktif. `src/lib/data-service.ts` adalah titik abstraksi yang perlu diganti dengan query Supabase; jangan letakkan service role key di browser.
+Salin `.env.example` menjadi `.env.local`. Endpoint dan project ID Appwrite sudah disiapkan; isi ID database dan collection setelah membuat skema Phase 1. Tanpa collection ID aplikasi tetap berjalan memakai data in-memory fiktif. Jangan pernah menaruh Appwrite API key atau service secret di browser.
 
 ## Role demo
 
-- `public`: semua halaman katalog, detail, inquiry, dan feedback.
+- `patient`: akun pasien dengan dashboard inquiry dan jadwal.
 - `facility_admin`: `/facility-admin/dashboard`; hanya melihat inquiry organisasi demo RS Harapan Kota.
-- `committee_admin`: `/committee/dashboard`; memproses pengajuan dan melihat audit log.
+- `partner_admin`: portal partner dukungan perjalanan.
+- `committee_admin` dan `reviewer`: `/committee/dashboard`; memproses pengajuan dan melihat audit log.
 
-Menu **ROLE DEMO DEVELOPMENT** di sidebar admin dipakai untuk menguji penolakan akses UI. Ketika Supabase Auth terhubung, peran seharusnya dipasok dari tabel profil pengguna dan dicek lagi dengan RLS pada server/database.
+Role dibaca dari Appwrite user preferences (`prefs.role`) dan route admin memeriksa role tersebut. Akun baru otomatis mendapat role `patient`.
 
 ## Struktur
 
@@ -30,8 +31,10 @@ Menu **ROLE DEMO DEVELOPMENT** di sidebar admin dipakai untuk menguji penolakan 
 - `src/features`: komponen yang dikelompokkan berdasarkan domain (`admin`, `catalog`, dan `public-forms`).
 - `src/types/domain.ts`: enum dan kontrak data MVP yang dipakai lintas layer.
 - `src/data/demo`: seed data fiktif untuk mode demo.
-- `src/services/data-service.ts`: repository data demo/pintu masuk implementasi Supabase berikutnya.
+- `src/services/data-service.ts`: repository data demo/fallback lokal.
+- `src/services/persistence-service.ts`: batas persistence Appwrite dengan fallback demo.
+- `src/lib/appwrite/database.ts`: adapter Appwrite Database untuk inquiry, feedback, dan audit log.
 
 ## Integrasi berikutnya
 
-Autentikasi Supabase, Row Level Security, persistensi inquiry/feedback/audit log, storage dokumen aman, email/notification, dan upload dokumen masih berupa mock. Platform ini tidak menyimpan RME, tidak membuat diagnosis, tidak menyediakan chat medis, pembayaran, atau ranking berbayar.
+Collection Appwrite, permission per role/team, storage dokumen aman, email/notification, dan verifikasi domain masih perlu dikonfigurasi pada project Appwrite. GitHub Pages tetap hanya cocok untuk UI publik; dashboard operasional dan endpoint berprivilege perlu dipindahkan ke server runtime atau Appwrite Functions sebelum menerima data pasien nyata. Platform ini tidak menyimpan RME, tidak membuat diagnosis, tidak menyediakan chat medis, pembayaran, atau ranking berbayar.

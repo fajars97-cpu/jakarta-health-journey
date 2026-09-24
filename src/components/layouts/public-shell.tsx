@@ -18,7 +18,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
 function PublicChrome({ children }: { children: React.ReactNode }) {
   const { isEnglish, toggleLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
-  const labels = isEnglish ? { explore: "Explore", guide: "Guide", support: "Travel support", feedback: "Feedback", signIn: "Sign in", language: "ID", languageAria: "Switch to Indonesian", menu: "Open menu", tagline: "Trusted Care, Seamless Journey", disclaimer: "Public information platform. Not a substitute for medical consultation or emergency services." } : { explore: "Jelajahi", guide: "Panduan", support: "Dukungan perjalanan", feedback: "Masukan", signIn: "Masuk", language: "EN", languageAria: "Ganti ke bahasa Inggris", menu: "Buka menu", tagline: "Perawatan Tepercaya, Perjalanan Terarah", disclaimer: "Platform informasi publik. Bukan pengganti konsultasi medis atau layanan gawat darurat." };
+  const labels = isEnglish ? { explore: "Explore", guide: "Guide", support: "Travel support", feedback: "Feedback", signIn: "Sign in", language: "ID", languageAria: "Switch to Indonesian", menu: "Open menu", tagline: "Trusted Care, Seamless Journey", disclaimer: "Public information platform. Not a substitute for medical consultation or emergency services.", privacy: "Privacy", terms: "Terms" } : { explore: "Jelajahi", guide: "Panduan", support: "Dukungan perjalanan", feedback: "Masukan", signIn: "Masuk", language: "EN", languageAria: "Ganti ke bahasa Inggris", menu: "Buka menu", tagline: "Perawatan Tepercaya, Perjalanan Terarah", disclaimer: "Platform informasi publik. Bukan pengganti konsultasi medis atau layanan gawat darurat.", privacy: "Privasi", terms: "Ketentuan" };
   const localizedNav = [[labels.explore, "/explore"], [labels.guide, "/guide"], [labels.support, "/support"], [labels.feedback, "/feedback"]] as const;
 
   return <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}><AppwritePing />
@@ -56,7 +56,7 @@ function PublicChrome({ children }: { children: React.ReactNode }) {
           <Image src={`${publicBasePath}/images/jakarta-health-journey-mark-v1.png`} alt="Logo Jakarta Health Journey" width={35} height={35} style={{ objectFit: "contain" }} />
           <div><b style={{ color: "white" }}>Jakarta Health Journey</b><p style={{ margin: "5px 0 0", fontSize: 14 }}>{labels.tagline}</p></div>
         </div>
-          <div style={{ display: "flex", gap: 8, fontSize: 13, maxWidth: 470 }}><ShieldCheck size={18} /><span>{labels.disclaimer}</span></div>
+          <div style={{ display: "grid", gap: 8, fontSize: 13, maxWidth: 470 }}><div style={{ display: "flex", gap: 8 }}><ShieldCheck size={18} /><span>{labels.disclaimer}</span></div><div style={{ display: "flex", gap: 14, paddingLeft: 26, fontSize: 12 }}><Link href="/privacy" style={{ textDecoration: "underline" }}>{labels.privacy}</Link><Link href="/terms" style={{ textDecoration: "underline" }}>{labels.terms}</Link></div></div>
       </div>
     </footer>
   </div>;

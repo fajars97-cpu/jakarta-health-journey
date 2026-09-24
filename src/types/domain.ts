@@ -1,4 +1,4 @@
-export enum Role { Public = "public", FacilityAdmin = "facility_admin", CommitteeAdmin = "committee_admin" }
+export enum Role { Public = "public", Patient = "patient", FacilityAdmin = "facility_admin", PartnerAdmin = "partner_admin", CommitteeAdmin = "committee_admin", Reviewer = "reviewer" }
 export enum PartnerType { Hospital = "Rumah Sakit", Clinic = "Klinik", Hotel = "Hotel", Travel = "Travel Agent", Translator = "Penerjemah" }
 export enum VerificationStatus { Draft="Draft", Submitted="Submitted", NeedsRevision="Needs Revision", Verified="Verified", Suspended="Suspended", Rejected="Rejected" }
 export enum InquiryStatus { New="New", Contacted="Contacted", Closed="Closed" }
