@@ -32,8 +32,8 @@ function PublicChrome({ children }: { children: React.ReactNode }) {
             <span>Jakarta Health<br /><small style={{ fontWeight: 600, color: "#4c697b" }}>Journey</small></span>
           </Link>
         </div>
-        <nav className="hide-mobile" style={{ display: "flex", gap: 22, fontSize: 14, fontWeight: 700, color: "#193d57" }}>
-          {localizedNav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+        <nav className="hide-mobile" style={{ display: "flex", gap: 18, fontSize: 13, fontWeight: 700, color: "#193d57", whiteSpace: "nowrap" }}>
+          {localizedNav.map(([label, href]) => <Link key={href} href={href} style={{ whiteSpace: "nowrap" }}>{label}</Link>)}
         </nav>
         <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
           <Image className="hide-mobile" src={`${publicBasePath}/images/logo-jakarta-5-abad.png`} alt="5 Abad Jakarta, Kota Global dan Berbudaya" width={86} height={50} style={{ objectFit: "contain" }} />
