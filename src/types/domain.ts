@@ -5,7 +5,7 @@ export enum InquiryStatus { New="New", Contacted="Contacted", Closed="Closed" }
 export enum FeedbackStatus { New="New", InReview="In Review", Resolved="Resolved", Closed="Closed" }
 export type User={id:string;name:string;email:string;role:Role;organizationId?:string};
 export type Service={id:string;name:string;category:string};
-export type Organization={id:string;slug:string;name:string;type:PartnerType;status:VerificationStatus;summary:string;area:string;address:string;languages:string[];accessibility:string[];contact:string;hours:string;services:string[]};
+export type Organization={id:string;slug:string;name:string;type:PartnerType;status:VerificationStatus;summary:string;area:string;address:string;languages:string[];accessibility:string[];contact:string;hours:string;services:string[];image?:string;imageType?:"photo"|"logo";imageAlt?:string};
 export type FacilityProfile=Organization & {patientContact:string; inquiryEstimate:string}; export type SupportPartnerProfile=Organization & {supportNote:string};
 export type VerificationApplication={id:string;organizationId:string;partnerType:PartnerType;status:VerificationStatus;submittedAt:string;note:string};
 export type Inquiry={id:string;organizationId:string;name:string;contact:string;service:string;purpose:string;date:string;needsTravel:boolean;status:InquiryStatus;createdAt:string};

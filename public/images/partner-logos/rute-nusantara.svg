@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Rute Nusantara Travel</title><desc id="desc">Illustrative travel partner logo</desc>
+  <rect width="640" height="360" rx="28" fill="#e9f5f4"/>
+  <circle cx="180" cy="180" r="76" fill="#0d887f"/>
+  <path d="M145 213c31-58 62-87 105-106-12 34-20 57-25 79 31 4 55 13 78 28-43 8-92 10-158-1Z" fill="#f08a38"/>
+  <text x="292" y="166" fill="#082b4a" font-family="Arial,sans-serif" font-size="34" font-weight="700">RUTE</text>
+  <text x="292" y="205" fill="#082b4a" font-family="Arial,sans-serif" font-size="34" font-weight="700">NUSANTARA</text>
+  <text x="294" y="235" fill="#0d887f" font-family="Arial,sans-serif" font-size="16" letter-spacing="3">TRAVEL SUPPORT</text>
+</svg>

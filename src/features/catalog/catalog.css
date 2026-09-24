@@ -1,0 +1,6 @@
+.partner-card-visual{position:relative;height:132px;background:linear-gradient(135deg,#eaf5f4,#f4f8fc);overflow:hidden}
+.partner-card-visual img{object-fit:cover}
+.partner-card-logo{display:grid;place-items:center;background:#f0f6fa}
+.partner-card-logo img{object-fit:contain;padding:22px}
+.partner-card-body{display:grid;gap:13px;padding:20px}
+@media(max-width:760px){.partner-card-visual{height:150px}}

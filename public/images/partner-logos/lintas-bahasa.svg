@@ -1,0 +1,9 @@
+<svg width="640" height="320" viewBox="0 0 640 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="320" rx="28" fill="#FFF6EC"/>
+  <path d="M122 203C122 154 162 114 211 114H236C265 114 288 137 288 166V182C288 211 265 234 236 234H211C162 234 122 252 122 203Z" fill="#F08B35"/>
+  <path d="M169 140C185 128 202 122 221 122C256 122 284 145 284 176C284 207 256 230 221 230C202 230 185 224 169 212" stroke="#0B5270" stroke-width="14" stroke-linecap="round"/>
+  <path d="M201 153L238 176L201 199V153Z" fill="white"/>
+  <circle cx="229" cy="176" r="7" fill="#F08B35"/>
+  <text x="326" y="151" fill="#0B3557" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Lintas Bahasa</text>
+  <text x="328" y="194" fill="#F08B35" font-family="Arial, Helvetica, sans-serif" font-size="22" letter-spacing="3">LANGUAGE SUPPORT</text>
+</svg>
