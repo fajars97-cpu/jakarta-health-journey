@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Compass, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 import { PublicShell } from "@/components/layouts/public-shell";
 import { useLanguage } from "@/features/i18n/language-context";
+import { EnjoyJakartaPromo } from "@/features/tourism/components/enjoy-jakarta-promo";
 
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const journeySteps = [["01", "Jelajahi", "Temukan fasilitas dan layanan terverifikasi."], ["02", "Rencanakan", "Pilih layanan serta dukungan perjalanan."], ["03", "Terhubung", "Kirim inquiry non-klinis dengan aman."], ["04", "Tiba", "Lanjutkan perjalanan dengan lebih tenang."]];
@@ -29,5 +30,6 @@ export default function Home() {
     <section className="container journey-section"><div className="section-heading"><div><p className="eyebrow">{copy.journeyEyebrow}</p><h2>{copy.journeyTitle}</h2></div><p>{copy.journeyCopy}</p></div><div className="journey-track">{journey.map(([number, title, description]) => <article className="journey-step" key={title}><div className="step-number">{number}</div><div className="step-dot" /><h3>{title}</h3><p>{description}</p></article>)}</div></section>
     <section className="confidence-section"><div className="container confidence-layout"><div><p className="eyebrow">{copy.confidenceEyebrow}</p><h2>{copy.confidenceTitle}</h2><p className="confidence-intro">{copy.confidenceCopy}</p><Link className="btn btn-dark" href="/explore">{copy.partner} <ArrowRight size={18} /></Link></div><div className="value-grid">{values.map((value, index) => { const Icon = value[0] as typeof ShieldCheck; const title = value[1] as string; const text = value[2] as string; return <article className="value-card" key={title}><span className="value-index">0{index + 1}</span><Icon size={25} /><h3>{title}</h3><p>{text}</p></article>; })}</div></div></section>
     <section className="container invitation-section"><div className="invitation-card"><div><p className="eyebrow">{copy.welcome}</p><h2>{copy.welcomeTitle}</h2></div><Link href="/support" className="round-arrow" aria-label={copy.support}><ArrowRight size={30} /></Link></div></section>
+    <EnjoyJakartaPromo />
   </main></PublicShell>;
 }

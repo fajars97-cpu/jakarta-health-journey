@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, BedDouble, ClipboardCheck, FileText, HelpCircle, MapPinned, MessageCircleQuestion, ShieldCheck, Stethoscope, TrainFront, UsersRound } from "lucide-react";
 import { useLanguage } from "@/features/i18n/language-context";
+import { EnjoyJakartaPromo } from "@/features/tourism/components/enjoy-jakarta-promo";
 
 const journeySteps = [
   { number: "01", icon: Stethoscope, title: "Pahami kebutuhan", copy: "Mulai dari layanan yang Anda cari, tanpa memasukkan rekam medis atau informasi darurat.", href: "/explore", cta: "Jelajahi fasyankes" },
@@ -53,6 +54,8 @@ export function GuidePage() {
     <section className="guide-section guide-rights"><div className="container guide-rights-grid"><div><p>{t.transparency}</p><h2>{t.rights}</h2></div><div><p>{t.rightsCopy}</p><Link href="/compare">{t.compareData} <ArrowRight size={15} /></Link></div></div></section>
 
     <section className="guide-section guide-faq"><div className="container"><div className="guide-section-heading"><div><p>{t.faq}</p><h2>{t.faqTitle}</h2></div></div><div className="guide-faq-grid">{isEnglish ? <><details open><summary><HelpCircle size={18} />Does JHJ provide diagnoses?</summary><p>No. JHJ is a public information and non-clinical inquiry coordination platform. Contact a facility directly for medical questions.</p></details><details><summary><HelpCircle size={18} />Are package prices final?</summary><p>No. MVP prices are illustrative. Confirm final price, inclusions, and availability through an inquiry.</p></details><details><summary><HelpCircle size={18} />Why do I need an account?</summary><p>An account keeps inquiries, schedules, cancellations, and partner updates in your patient dashboard.</p></details></> : <><details open><summary><HelpCircle size={18} />Apakah JHJ memberikan diagnosis?</summary><p>Tidak. JHJ adalah platform informasi publik dan koordinasi inquiry non-klinis. Untuk pertanyaan medis, hubungi fasyankes secara langsung.</p></details><details><summary><HelpCircle size={18} />Apakah harga paket sudah final?</summary><p>Belum. Harga pada MVP adalah ilustrasi. Konfirmasi harga akhir, cakupan, dan ketersediaan langsung melalui inquiry.</p></details><details><summary><HelpCircle size={18} />Mengapa saya perlu membuat akun?</summary><p>Akun membantu menyimpan inquiry, jadwal, pembatalan, dan pembaruan dari mitra dalam dashboard pasien.</p></details></>}</div></div></section>
+
+    <EnjoyJakartaPromo />
 
     <section className="guide-cta"><div className="container"><div><p>{t.next}</p><h2>{t.nextTitle}</h2></div><div><Link href="/explore" className="btn btn-coral">{t.explore} <ArrowRight size={16} /></Link><Link href="/support" className="guide-cta-link">{t.travel} <ArrowRight size={15} /></Link></div></div></section>
   </main>;
