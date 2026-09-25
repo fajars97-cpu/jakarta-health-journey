@@ -34,7 +34,8 @@ Role dibaca dari Appwrite user preferences (`prefs.role`) dan route admin memeri
 - `src/services/data-service.ts`: repository data demo/fallback lokal.
 - `src/services/persistence-service.ts`: batas persistence Appwrite dengan fallback demo.
 - `src/lib/appwrite/database.ts`: adapter Appwrite Database untuk inquiry, feedback, dan audit log.
+- `docs/appwrite-phase-2.md`: skema collection operasional pasien, jadwal, dan permission team.
 
 ## Integrasi berikutnya
 
-Collection Appwrite, permission per role/team, storage dokumen aman, email/notification, dan verifikasi domain masih perlu dikonfigurasi pada project Appwrite. GitHub Pages tetap hanya cocok untuk UI publik; dashboard operasional dan endpoint berprivilege perlu dipindahkan ke server runtime atau Appwrite Functions sebelum menerima data pasien nyata. Platform ini tidak menyimpan RME, tidak membuat diagnosis, tidak menyediakan chat medis, pembayaran, atau ranking berbayar.
+Collection Appwrite, permission per role/team, storage dokumen aman, email/notification, dan verifikasi domain masih perlu dikonfigurasi pada project Appwrite. Fase 2 menyiapkan collection inquiry, jadwal, dan profil pasien beserta adapter baca/tulisnya. GitHub Pages tetap hanya cocok untuk UI publik; dashboard operasional dan endpoint berprivilege perlu dipindahkan ke server runtime atau Appwrite Functions sebelum menerima data pasien nyata. Platform ini tidak menyimpan RME, tidak membuat diagnosis, tidak menyediakan chat medis, pembayaran, atau ranking berbayar.

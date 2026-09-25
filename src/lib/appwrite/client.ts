@@ -9,6 +9,10 @@ export const appwriteConfig = {
   inquiriesCollectionId: process.env.NEXT_PUBLIC_APPWRITE_INQUIRIES_COLLECTION_ID ?? "",
   feedbackCollectionId: process.env.NEXT_PUBLIC_APPWRITE_FEEDBACK_COLLECTION_ID ?? "",
   auditLogsCollectionId: process.env.NEXT_PUBLIC_APPWRITE_AUDIT_LOGS_COLLECTION_ID ?? "",
+  appointmentsCollectionId: process.env.NEXT_PUBLIC_APPWRITE_APPOINTMENTS_COLLECTION_ID ?? "",
+  patientProfilesCollectionId: process.env.NEXT_PUBLIC_APPWRITE_PATIENT_PROFILES_COLLECTION_ID ?? "",
+  facilityTeamId: process.env.NEXT_PUBLIC_APPWRITE_FACILITY_TEAM_ID ?? "",
+  committeeTeamId: process.env.NEXT_PUBLIC_APPWRITE_COMMITTEE_TEAM_ID ?? "",
 };
 
 const client = new Client()
