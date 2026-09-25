@@ -35,6 +35,7 @@ Role dibaca dari Appwrite user preferences (`prefs.role`) dan route admin memeri
 - `src/services/persistence-service.ts`: batas persistence Appwrite dengan fallback demo.
 - `src/lib/appwrite/database.ts`: adapter Appwrite Database untuk inquiry, feedback, dan audit log.
 - `docs/appwrite-phase-2.md`: skema collection operasional pasien, jadwal, dan permission team.
+- `docs/phase-3-production-readiness.md`: checklist quality gate, SEO, dan batasan deployment.
 
 ## Integrasi berikutnya
 

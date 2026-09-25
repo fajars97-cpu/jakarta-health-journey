@@ -1,0 +1,12 @@
+{
+  "name": "Jakarta Health Journey",
+  "short_name": "JHJ",
+  "description": "Layanan kesehatan dan dukungan perjalanan terverifikasi di Jakarta.",
+  "start_url": "/jakarta-health-journey/",
+  "scope": "/jakarta-health-journey/",
+  "display": "standalone",
+  "background_color": "#f4f8f8",
+  "theme_color": "#082b4a",
+  "lang": "id-ID",
+  "icons": [{ "src": "/jakarta-health-journey/icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }]
+}
