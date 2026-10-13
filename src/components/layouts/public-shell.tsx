@@ -30,7 +30,7 @@ function PublicChrome({ children }: { children: React.ReactNode }) {
           <span aria-hidden="true" style={{ width: 1, height: 34, background: "#d7e2e8" }} />
           <Link href="/" className="public-brand">
             <Image src={`${publicBasePath}/images/jakarta-health-journey-mark-v1.png`} alt="Logo Jakarta Health Tourism" width={40} height={40} style={{ objectFit: "contain" }} />
-            <span>Jakarta Health<br /><small style={{ fontWeight: 600, color: "#4c697b" }}>Journey</small></span>
+            <span>Jakarta Health<br /><small style={{ fontWeight: 600, color: "#4c697b" }}>Tourism</small></span>
           </Link>
         </div>
         <nav className="public-nav" aria-label={isEnglish ? "Main navigation" : "Navigasi utama"}>
