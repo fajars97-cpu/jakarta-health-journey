@@ -84,9 +84,11 @@ function useComparisonItems(): ResolvedComparisonItem[] {
 export function ComparisonPackageButton({
   organizationId,
   service,
+  compact = false,
 }: {
   organizationId: string;
   service: string;
+  compact?: boolean;
 }) {
   const items = useComparisonItems();
   const { isEnglish } = useLanguage();
@@ -109,15 +111,20 @@ export function ComparisonPackageButton({
     setNotice("");
   }
 
+  const idleLabel = compact ? (isEnglish ? "Compare" : "Bandingkan") : (isEnglish ? "Compare package" : "Bandingkan paket");
+  const selectedLabel = isEnglish ? "Marked for comparison" : "Ditandai untuk dibandingkan";
+
   return (
     <div className="comparison-package-action">
       <button
         type="button"
         onClick={toggle}
         className={selected ? "comparison-package-selected" : ""}
+        aria-pressed={selected}
+        aria-label={`${selected ? selectedLabel : idleLabel}: ${service}`}
       >
         <Scale size={15} />
-        {selected ? (isEnglish ? "Marked for comparison" : "Ditandai untuk dibandingkan") : (isEnglish ? "Compare package" : "Bandingkan paket")}
+        {selected ? selectedLabel : idleLabel}
       </button>
       {notice && (
         <small>
@@ -201,7 +208,7 @@ export function ComparisonWorkspace() {
         <section className="container compare-empty">
           <Scale size={32} />
           <h2>{isEnglish ? activeTab.emptyTitleEn : activeTab.emptyTitle}</h2>
-          <p>Buka halaman mitra dan pilih “Bandingkan paket” pada kartu paket yang ingin Anda lihat berdampingan.</p>
+          <p>{isEnglish ? "Open a partner page and choose a package to compare it side by side." : "Buka halaman mitra dan pilih paket yang ingin Anda lihat berdampingan."}</p>
           <Link href={activeTab.href} className="btn btn-primary">
             {isEnglish ? "Explore" : "Jelajahi"} {activeLabel}
           </Link>

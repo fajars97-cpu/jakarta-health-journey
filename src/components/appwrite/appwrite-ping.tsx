@@ -11,7 +11,7 @@ export function AppwritePing() {
     hasPinged = true;
 
     void client.ping()
-      .then(() => console.info("[Appwrite] Connected to Jakarta Health Journey."))
+      .then(() => console.info("[Appwrite] Connected to Jakarta Health Tourism."))
       .catch((error: unknown) => console.error("[Appwrite] Connection check failed.", error));
   }, []);
 

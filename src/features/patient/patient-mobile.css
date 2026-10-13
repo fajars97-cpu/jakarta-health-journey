@@ -1,0 +1,4 @@
+@media(max-width:800px){.patient-nav{grid-template-columns:repeat(5,minmax(118px,1fr));overflow-x:auto;overflow-y:hidden;scrollbar-width:none}.patient-nav::-webkit-scrollbar{display:none}.patient-nav a{justify-content:flex-start;padding:10px 12px}.patient-nav a svg{display:block;flex:none}.patient-main{padding:28px 16px}.patient-list{grid-template-columns:22px minmax(0,1fr);align-items:start}.patient-list .patient-status{grid-column:2;justify-self:start;margin-top:4px}.patient-header{position:sticky;top:0;z-index:15}}
+@media(max-width:480px){.patient-nav{grid-template-columns:repeat(5,minmax(112px,1fr))}.patient-title h1{font-size:39px}.patient-stat-grid{gap:9px}.patient-stat{padding:14px}.patient-stat b{font-size:28px}}
+ .patient-session{display:inline-flex;align-items:center;gap:4px;color:#08786f;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#e4f6f2}
+@media(max-width:800px){.patient-session{display:none}}

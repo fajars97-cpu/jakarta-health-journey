@@ -1,4 +1,4 @@
-# Jakarta Health Journey
+# Jakarta Health Tourism
 
 MVP civic-tech untuk membantu pasien menemukan layanan kesehatan dan dukungan perjalanan terverifikasi di Jakarta. Seluruh identitas, organisasi, dan data pada mode demo bersifat fiktif.
 

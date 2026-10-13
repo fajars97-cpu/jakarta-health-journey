@@ -39,11 +39,11 @@ function portalSchedule(record: DomainAppointment): Schedule {
 
 export function PatientShell({ children }: { children: ReactNode }) {
   const path = usePathname(); const { user, signOut } = useAuth();
-  return <RequireAuthentication><div className="patient-shell"><header className="patient-header"><Link href="/" className="patient-brand"><ShieldCheck size={20} /> Jakarta Health Journey <small>Patient</small></Link><div><span className="patient-name">{user?.name || "Pasien Demo"}</span><button className="patient-logout" onClick={() => void signOut()}>Keluar</button></div></header><aside className="patient-nav">{nav.map(([label, href, Icon]) => <Link key={href} href={href} className={path === href ? "active" : ""}><Icon size={17} />{label}</Link>)}</aside><main className="patient-main">{children}</main></div></RequireAuthentication>;
+  return <RequireAuthentication><div className="patient-shell"><header className="patient-header"><Link href="/" className="patient-brand"><ShieldCheck size={20} /> Jakarta Health Tourism <small>Patient</small></Link><div><span className="patient-session"><ShieldCheck size={14} /> Sesi aman · 24 jam</span><span className="patient-name">{user?.name || "Pasien Demo"}</span><button className="patient-logout" onClick={() => void signOut()}>Keluar</button></div></header><aside className="patient-nav">{nav.map(([label, href, Icon]) => <Link key={href} href={href} className={path === href ? "active" : ""}><Icon size={17} />{label}</Link>)}</aside><main className="patient-main">{children}</main></div></RequireAuthentication>;
 }
 
 function Status({ value }: { value: string }) { return <span className={`patient-status ${value === "Dijadwalkan" || value === "Diterima" ? "is-good" : value.includes("Batal") ? "is-muted" : "is-waiting"}`}>{value}</span>; }
-function PageTitle({ title, subtitle }: { title: string; subtitle: string }) { return <header className="patient-title"><p>JAKARTA HEALTH JOURNEY · PASIEN</p><h1>{title}</h1><span>{subtitle}</span></header>; }
+function PageTitle({ title, subtitle }: { title: string; subtitle: string }) { return <header className="patient-title"><p>JAKARTA HEALTH TOURISM · PASIEN</p><h1>{title}</h1><span>{subtitle}</span></header>; }
 
 export function PatientDashboard() {
   const { user } = useAuth();

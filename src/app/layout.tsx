@@ -5,19 +5,22 @@ import { CurrencyProvider } from "@/features/currency/currency-context";
 import "@/features/auth/auth.css";
 import "@/features/language/language-support.css";
 import "@/features/language/language-credentials.css";
+import "@/features/system/responsive-shell.css";
+import "@/features/patient/patient-mobile.css";
+import "@/features/hospital/facility-nav.css";
 import "./globals.css";
 const siteUrl = "https://fajars97-cpu.github.io/jakarta-health-journey";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "Jakarta Health Journey", template: "%s | Jakarta Health Journey" },
+  title: { default: "Jakarta Health Tourism", template: "%s | Jakarta Health Tourism" },
   description: "Temukan layanan kesehatan terverifikasi dan dukungan perjalanan di Jakarta.",
-  applicationName: "Jakarta Health Journey",
+  applicationName: "Jakarta Health Tourism",
   keywords: ["health tourism Jakarta", "layanan kesehatan Jakarta", "medical tourism Indonesia", "Enjoy Jakarta"],
-  authors: [{ name: "Jakarta Health Journey" }],
+  authors: [{ name: "Jakarta Health Tourism" }],
   alternates: { canonical: "/" },
   manifest: "/manifest.webmanifest",
-  openGraph: { type: "website", locale: "id_ID", url: siteUrl, siteName: "Jakarta Health Journey", title: "Jakarta Health Journey", description: "Trusted care, seamless journey in Jakarta." },
-  twitter: { card: "summary_large_image", title: "Jakarta Health Journey", description: "Layanan kesehatan dan dukungan perjalanan terverifikasi di Jakarta." },
+  openGraph: { type: "website", locale: "id_ID", url: siteUrl, siteName: "Jakarta Health Tourism", title: "Jakarta Health Tourism", description: "Trusted care, seamless journey in Jakarta." },
+  twitter: { card: "summary_large_image", title: "Jakarta Health Tourism", description: "Layanan kesehatan dan dukungan perjalanan terverifikasi di Jakarta." },
   robots: { index: true, follow: true },
 };
 export const viewport: Viewport = { themeColor: "#082b4a" };

@@ -5,7 +5,7 @@ Fase 3 menyiapkan aplikasi untuk dipelihara dengan aman sebelum dipakai untuk op
 ## Yang sudah diterapkan
 
 - Metadata SEO, canonical URL, Open Graph, sitemap, dan robots policy untuk route publik.
-- Route-level loading, error boundary, dan halaman 404 yang konsisten dengan identitas JHJ.
+- Route-level loading, error boundary, dan halaman 404 yang konsisten dengan identitas Jakarta Health Tourism.
 - Manifest web app untuk pengalaman mobile yang lebih baik.
 - Quality gate CI berjalan pada push `main` dan pull request: type-check, lint, audit dependency, serta static build.
 - Duplicate-submit guard ringan untuk inquiry dan feedback pada sisi client.

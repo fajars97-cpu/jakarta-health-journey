@@ -14,7 +14,7 @@ export function roleLabel(role: Role) {
     [Role.Patient]: "Patient",
     [Role.FacilityAdmin]: "Facility admin",
     [Role.PartnerAdmin]: "Partner admin",
-    [Role.CommitteeAdmin]: "JHJ admin",
+    [Role.CommitteeAdmin]: "Admin Jakarta Health Tourism",
     [Role.Reviewer]: "Reviewer",
   }[role];
 }

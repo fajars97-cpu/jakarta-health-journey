@@ -112,6 +112,9 @@ export function HotelLanding({ partner }: { partner: Organization }) {
         </div>
       </section>
 
+      <nav className="facility-section-nav hotel-section-nav" aria-label="Navigasi halaman hotel"><div className="container"><a href="#hotel-rooms">Kamar</a><a href="#hotel-rooms">Pilihan layanan</a><a href="#hotel-inquiry">Inquiry</a><a className="facility-nav-cta" href="#hotel-inquiry">Ajukan inquiry</a></div></nav>
+      <a className="facility-mobile-cta" href="#hotel-inquiry">Ajukan inquiry <ArrowUpRight size={16} /></a>
+
       <section className="container hotel-summary">
         <article><MapPin size={20} /><b>{partner.area}</b><span>{partner.address}</span></article>
         <article><Clock3 size={20} /><b>Respons 1–2 hari</b><span>Konfirmasi ketersediaan non-medis</span></article>
